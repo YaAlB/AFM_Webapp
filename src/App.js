@@ -6,6 +6,8 @@ import Signup from './features/auth/Signup';
 import DashLayout from './components/DashLayout'
 import Welcome from './features/auth/Welcome'
 import ApplicationsList from './features/applications/ApplicationsList'
+import EditApplication from './features/applications/EditApplication'
+import NewApplication from './features/applications/NewApplication'
 
 function App() {
   return (
@@ -20,6 +22,8 @@ function App() {
 
           <Route path="applications">
             <Route index element={<ApplicationsList />} />
+              <Route path=":id" element={<EditApplication />} />
+              <Route path="new" element={<NewApplication />} />
           </Route>
 
         </Route>
