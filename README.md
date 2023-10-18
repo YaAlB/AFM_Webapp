@@ -96,4 +96,50 @@ To deploy and utilise CI/CD, the react frontend is on [Reader.com](https://reade
 ### 5.10. **Continuous Deployment:**
     - Simplify the deployment process by setting up continuous deployment. Any changes you push to the GitHub master branch trigger automatic deployments.
 
-By following these steps, react.js Ewebapp will be up and running on [Reader.com](https://reader.com). It'll be in production mode, ready to serve requests, and enhance the experience for your users. And production website for the project is https://afm.onrender.com/
+By following these steps, react.js webapp will be up and running on [Reader.com](https://reader.com). It'll be in production mode, ready to serve requests, and enhance the experience for your users. And production website for the project is https://afm.onrender.com/
+
+## Deployment #2
+
+Now, let's deploy the AFM web app to a web server. In this part, we'll use Google Cloud's App Engine to host your React app. 
+
+1. **Build the App:**
+   - Create a production-ready build of your app:
+
+   ```bash
+   npm run build
+   ```
+
+   This will generate optimized static files in the `build` directory.
+
+2. **Google Cloud Setup:**
+   - If you don't already have a Google Cloud account, sign up for one.
+
+   - Install and configure the [Google Cloud SDK](https://cloud.google.com/sdk/docs/quickstarts) on your local machine.
+
+3. **App Engine Configuration:**
+   - In the root directory of your project, create an `app.yaml` file for configuring your App Engine settings. Here's an example `app.yaml`:
+
+   ```yaml
+   runtime: nodejs20
+   handlers:
+    - url: /
+    static_files: build/index.html
+    upload: build/index.html
+
+    - url: /
+    static_dir: build
+   ```
+
+4. **Deploy to App Engine:**
+   - Run the following command to deploy your app to Google App Engine:
+
+   ```bash
+   gcloud app deploy
+   ```
+
+   Follow the prompts to select your project and confirm the deployment.
+
+   Google App Engine will automatically build and deploy your React app. Once the deployment is complete, you'll receive the URL where your app is hosted.
+
+5. **Final Testing:**
+   - Visit the URL provided by Google Cloud to ensure that your app is accessible and working as expected.
