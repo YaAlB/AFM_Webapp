@@ -1,70 +1,99 @@
-# Getting Started with Create React App
+# Asset Finance Management Web App Setup and Deployment Guide
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Welcome to the setup and deployment guide for the Asset Finance Management web app. In this guide, we'll walk you through the steps to set up the app locally and deploy it to a web server for public access.
 
-## Available Scripts
+### Prerequisites
 
-In the project directory, you can run:
+Before you begin, make sure you have the following:
 
-### `npm start`
+1. **Node.js:** Install [Node.js](https://nodejs.org/) to run JavaScript on the server.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+2. **Git:** You'll need [Git](https://git-scm.com/) to clone the app's repository.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+3. **Package Manager:** This guide assumes you have npm (comes with Node.js)
 
-### `npm test`
+4. **GitHub Repository:** Ensure you can access [AFM Webapp](https://github.com/YaAlB/AFM_Webapp) to the GitHub repository containing the app's source code.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Local Setup
 
-### `npm run build`
+Let's set up the web app on your local development environment:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+1. **Clone the Repository:**
+   - Open your terminal or command prompt.
+   - Navigate to the directory where you want to store the project.
+   - Run this command to clone the GitHub repository:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+   ```bash
+   git clone https://github.com/YaAlB/AFM_Webapp
+   ```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+2. **Install Dependencies:**
+   - Navigate into the project folder:
+   
+   ```bash
+   cd webapp
+   ```
 
-### `npm run eject`
+   - Install the project dependencies:
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+   ```bash
+   npm install
+   ```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+3. **Environment Variables:**
+   - Create a `.env` file in the project's root directory.
+   - Define environment variables including `SENTRY_DSN` and use the following token `https://543180966b7436f763a9aec829bdfbfd@o4506069215608832.ingest.sentry.io/4506069215674368` to capture errors and webapp monitor performance.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+4. **Start the Development Server:**
+   - Run the development server:
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+   ```bash
+   npm start
+   ```
 
-## Learn More
+   The app should now be running at `http://localhost:3000` in your browser.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Deployment
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Now, let's deploy the Asset Finance Management web app to a web server. 
 
-### Code Splitting
+5. **Build the App:**
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+   ```bash
+   npm run build
+   ```
 
-### Analyzing the Bundle Size
+   This will generate optimized static files in the `build` directory.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+### 5.1. Deploying the webapp on [Reader.com](https://reader.com)
 
-### Making a Progressive Web App
+To deploy and utilise CI/CD, the react frontend is on [Reader.com](https://reader.com), please follow these steps:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+### 5.2. **Log In:**
+   - Begin by logging into your [Reader.com](https://reader.com) account.
 
-### Advanced Configuration
+### 5.3. **Create a Site:**
+   - Create a new site. Choose the Node.js option for deploying frontend.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+### 5.4. **Connect Your Repository:**
+   - Link your GitHub repository to your [Reader.com](https://reader.com) account.
 
-### Deployment
+### 5.5. **Configure the Build:**
+   - Specify your GitHub branch (usually "master" for production) and set the build command. And, the build command is `npm install && npm start`.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+### 5.6. **Set Environment Variables:**
+   - Ensure your application's environment variables are properly configured in the [Reader.com](https://reader.com) environment settings.
 
-### `npm run build` fails to minify
+### 5.7. **Initiate Deployment:**
+   - Click the "Deploy" button to start the deployment process.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+### 5.8. **Monitor Deployment:**
+   - Keep an eye on the deployment progress through real-time logs and status updates available on [Reader.com](https://reader.com).
+
+### 5.9. **Access Your Frontend:**
+   - Once the deployment is complete, you'll receive a URL where your react.js webapp is live.
+
+### 5.10. **Continuous Deployment:**
+    - Simplify the deployment process by setting up continuous deployment. Any changes you push to the GitHub master branch trigger automatic deployments.
+
+By following these steps, react.js Ewebapp will be up and running on [Reader.com](https://reader.com). It'll be in production mode, ready to serve requests, and enhance the experience for your users. And production website for the project is https://afm.onrender.com/
