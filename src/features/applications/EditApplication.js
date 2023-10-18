@@ -1,5 +1,6 @@
 import { useParams } from 'react-router-dom'
 import { useSelector } from 'react-redux'
+
 import { selectApplicationById } from './applicationsApiSlice'
 import EditApplicationForm from './EditApplicationForm'
 
