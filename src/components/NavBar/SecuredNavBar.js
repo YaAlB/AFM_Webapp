@@ -1,9 +1,13 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
+
 import hamburger from "../../assets/icons/hamburger.png";
 import logo from "../../assets/icons/logo.png";
 
-const Navbar = () => {
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPersonWalkingArrowRight } from "@fortawesome/free-solid-svg-icons"
+
+const Navbar = (props) => {
   const [showNavbar, setShowNavbar] = useState(false);
 
   const handleShowNavbar = () => {
@@ -14,12 +18,12 @@ const Navbar = () => {
     <nav className="navbar">
       <div className="containerNavBar">
         <div>
-          <Link to="/">
+          <NavLink to="/dash">
           <img className="logo"
             src={logo}
             alt="AFM"
           />
-          </Link>
+          </NavLink>
         </div>
         <div onClick={handleShowNavbar}>
           <img src={hamburger} className="menu-icon" alt="fireSpot" />
@@ -27,24 +31,29 @@ const Navbar = () => {
         
         <div className={`nav-elements  ${showNavbar && "active"}`}>
           <ul>
-            <li>
-              <Link to="/aboutus"><h1>Why AFM</h1></Link>
+          <li>
+          <Link to="/dash/applications"><h1>My Applications</h1></Link>
             </li>
             <li>
-              <Link to="/services"><h2>Services</h2></Link>
+            <Link to="/dash/applications/new"><h1>Create Application</h1></Link>
             </li>
             <li>
-            <Link className="button-signin button-margin" to="/auth/login">Sign In</Link>
-            <Link className="button-signup button-margin" to="/auth/signup">Sign Up</Link>
+            <button
+            className="icon-button-logout"
+            title="Logout"
+            onClick={props.onSelectLogout}
+            >
+              <FontAwesomeIcon icon={faPersonWalkingArrowRight} size="xs" />
+          </button>
             </li>
-            
           </ul>
+          
         </div>
+        
       </div>
+      
     </nav>
   );
 };
 
 export default Navbar;
-
-
