@@ -25,8 +25,7 @@ const DashFooter = () => {
     const content = (
         <footer className="dash-footer">
             {goHomeButton}
-            <p>Current User:</p>
-            <p>Status:</p>
+            <p>© 2012-2023 AFM - Lvl 1/645 Queen St, Brisbane City QLD 4000 Australia</p>
         </footer>
     )
     return content
