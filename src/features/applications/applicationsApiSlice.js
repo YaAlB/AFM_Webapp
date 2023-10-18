@@ -64,7 +64,7 @@ export const applicationsApiSlice = apiSlice.injectEndpoints({
                 method: 'DELETE',
                 body: { id }
             }),
-            invalidatesTags: (result, error, arg) => [
+            invalidatesTags: (_result, _error, arg) => [
                 { type: 'Application', id: arg.id }
             ]
         }),
