@@ -1,16 +1,21 @@
 import { store } from '../../app/store'
-import { applicationsApiSlice } from '../notes/applicationsApiSlice'
+
+import { applicationsApiSlice } from '../applications/applicationsApiSlice'
+import { userApiSlice } from '../user/userApiSlice';
+
 import { useEffect } from 'react';
 import { Outlet } from 'react-router-dom';
 
 const Prefetch = () => {
     useEffect(() => {
-        console.log('subscribing')
+        // subscribing
         const applications = store.dispatch(applicationsApiSlice.endpoints.getApplications.initiate())
+        const user = store.dispatch(userApiSlice.endpoints.getUser.initiate())
 
         return () => {
-            console.log('unsubscribing')
+            // unsubscribing
             applications.unsubscribe()
+            user.unsubscribe()
         }
     }, [])
 
