@@ -9,7 +9,6 @@ import { store } from "./app/store";
 import "./index.css";
 import App from "./App";
 
-
 Sentry.init({
   dsn: process.env.SENTRY_DSN,
   integrations: [
