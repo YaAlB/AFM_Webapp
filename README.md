@@ -51,7 +51,7 @@ Let's set up the web app on your local development environment:
    npm start
    ```
 
-   The app should now be running at `http://localhost:3000` in your browser.
+   The app should now be running at `http://localhost:3000` in your browser and you will need to change baseUrl in the apiSlice file to `http://localhost:5500`.
 
 ## Deployment
 
