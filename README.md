@@ -65,30 +65,30 @@ Now, let's deploy the Asset Finance Management web app to a web server.
 
    This will generate optimized static files in the `build` directory.
 
-### 5.1. Deploying the webapp on [Reader.com](https://reader.com)
+### 5.1. Deploying the webapp on [Render.com](https://render.com)
 
-To deploy and utilise CI/CD, the react frontend is on [Reader.com](https://reader.com), please follow these steps:
+To deploy and utilise CI/CD, the react frontend is on [Render.com](https://render.com), please follow these steps:
 
 ### 5.2. **Log In:**
-   - Begin by logging into your [Reader.com](https://reader.com) account.
+   - Begin by logging into your [Render.com](https://render.com) account.
 
 ### 5.3. **Create a Site:**
    - Create a new site. Choose the Node.js option for deploying frontend.
 
 ### 5.4. **Connect Your Repository:**
-   - Link your GitHub repository to your [Reader.com](https://reader.com) account.
+   - Link your GitHub repository to your [Render.com](https://render.com) account.
 
 ### 5.5. **Configure the Build:**
    - Specify your GitHub branch (usually "master" for production) and set the build command. And, the build command is `npm install && npm start`.
 
 ### 5.6. **Set Environment Variables:**
-   - Ensure your application's environment variables are properly configured in the [Reader.com](https://reader.com) environment settings.
+   - Ensure your application's environment variables are properly configured in the [Render.com](https://render.com) environment settings.
 
 ### 5.7. **Initiate Deployment:**
    - Click the "Deploy" button to start the deployment process.
 
 ### 5.8. **Monitor Deployment:**
-   - Keep an eye on the deployment progress through real-time logs and status updates available on [Reader.com](https://reader.com).
+   - Keep an eye on the deployment progress through real-time logs and status updates available on [Render.com](https://render.com).
 
 ### 5.9. **Access Your Frontend:**
    - Once the deployment is complete, you'll receive a URL where your react.js webapp is live.
@@ -96,7 +96,7 @@ To deploy and utilise CI/CD, the react frontend is on [Reader.com](https://reade
 ### 5.10. **Continuous Deployment:**
     - Simplify the deployment process by setting up continuous deployment. Any changes you push to the GitHub master branch trigger automatic deployments.
 
-By following these steps, react.js webapp will be up and running on [Reader.com](https://reader.com). It'll be in production mode, ready to serve requests, and enhance the experience for your users. And production website for the project is https://afm.onrender.com/
+By following these steps, react.js webapp will be up and running on [Render.com](https://render.com). It'll be in production mode, ready to serve requests, and enhance the experience for your users. And production website for the project is https://afm.onrender.com/
 
 ## Deployment #2
 
@@ -142,4 +142,4 @@ Now, let's deploy the AFM web app to a web server. In this part, we'll use Googl
    Google App Engine will automatically build and deploy your React app. Once the deployment is complete, you'll receive the URL where your app is hosted.
 
 5. **Final Testing:**
-   - Visit the URL provided by Google Cloud to ensure that your app is accessible and working as expected.
+   - Visit the URL provided by Google Cloud to ensure that your app is accessible and working as expected. And production website for the project is https://plasma-renderer-402405.ts.r.appspot.com/
