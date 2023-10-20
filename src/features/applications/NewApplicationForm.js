@@ -30,6 +30,7 @@ const NewApplicationForm = () => {
     propertiesValue: "",
     vehiclesAmount: "",
     sharesTermDeposits: "",
+    homeMortgage: "",
     otherMortgage: "",
     creditCard: "",
     otherLiabilities: "",
@@ -38,7 +39,6 @@ const NewApplicationForm = () => {
 
   useEffect(() => {
     if (isSuccess) {
-      // setTitle("");
       navigate("/dash/applications");
     }
   }, [isSuccess, navigate]);
@@ -51,102 +51,112 @@ const NewApplicationForm = () => {
     let errors = {};
     let formIsValid = true;
 
-    if (!fields["title"]) {
+    if (fields["title"] ===  '') {
       formIsValid = false;
       errors["title"] = "Field is empty";
     }
 
-    if (!fields["financeType"]) {
+    if (Object.keys(fields["financeType"]).length === 0) {
       formIsValid = false;
       errors["financeType"] = "Field is empty";
     }
 
-    if (!fields["newUsedType"]) {
+    if (Object.keys(fields["newUsedType"]).length === 0) {
       formIsValid = false;
       errors["newUsedType"] = "Field is empty";
     }
     
-    if (!fields["assetCost"]) {
+    if (fields["assetCost"] ===  '' || isNaN(fields["assetCost"])) {
       formIsValid = false;
       errors["assetCost"] = "Field is empty";
     }
 
-    if (!fields["financeAmount"]) {
+    if (fields["financeAmount"] ===  '' || isNaN(fields["financeAmount"])) {
       formIsValid = false;
       errors["financeAmount"] = "Field is empty";
     }
 
-    if (!fields["companyName"]) {
+    if (fields["companyName"] ===  '') {
       formIsValid = false;
       errors["companyName"] = "Field is empty";
     }
 
-    if (!fields["tradingName"]) {
+    if (fields["tradingName"] ===  '') {
       formIsValid = false;
       errors["tradingName"] = "Field is empty";
     }
 
-    if (!fields["ABN"]) {
+    if (fields["ABN"] ===  '' || isNaN(fields["ABN"])) {
       formIsValid = false;
       errors["ABN"] = "Field is empty";
     }
 
-    if (!fields["fullName"]) {
+    if (fields["fullName"] === '') {
       formIsValid = false;
       errors["fullName"] = "Field is empty";
     }
 
-    if (!fields["address"]) {
+    if (fields["address"] === '') {
       formIsValid = false;
       errors["address"] = "Field is empty";
     }
 
-    if (!fields["addressState"]) {
+    if (Object.keys(fields["addressState"]).length === 0) {
       formIsValid = false;
       errors["addressState"] = "Field is empty";
     }
 
-    if (!fields["postCode"]) {
+    if (fields["deposit"] ===  '' || isNaN(fields["deposit"])) {
+      formIsValid = false;
+      errors["deposit"] = "Field is empty";
+    }
+
+    if (fields["postCode"] ===  '' || isNaN(fields["postCode"])) {
       formIsValid = false;
       errors["postCode"] = "Field is empty";
     }
 
-    if (!fields["licence"]) {
+    if (fields["licence"] ===  '' || isNaN(fields["licence"])) {
       formIsValid = false;
       errors["licence"] = "Field is empty";
     }
 
-    if (!fields["cash"]) {
+    if (fields["cash"] ===  '' || isNaN(fields["cash"])) {
       formIsValid = false;
       errors["cash"] = "Field is empty";
     }
 
-    if (!fields["propertiesValue"]) {
+    if (fields["propertiesValue"] ===  '' || isNaN(fields["propertiesValue"])) {
       formIsValid = false;
       errors["propertiesValue"] = "Field is empty";
     }
 
-    if (!fields["vehiclesAmount"]) {
+    if (fields["vehiclesAmount"] ===  '' || isNaN(fields["vehiclesAmount"])) {
       formIsValid = false;
       errors["vehiclesAmount"] = "Field is empty";
     }
 
-    if (!fields["otherMortgage"]) {
+    if (fields["homeMortgage"] ===  '' || isNaN(fields["homeMortgage"])) {
+      formIsValid = false;
+      errors["homeMortgage"] = "Field is empty";
+    }
+
+    if (fields["otherMortgage"] ===  '' || isNaN(fields["otherMortgage"])) {
       formIsValid = false;
       errors["otherMortgage"] = "Field is empty";
     }
 
-    if (!fields["sharesTermDeposits"]) {
+    if (fields["sharesTermDeposits"] ===  '' || isNaN(fields["sharesTermDeposits"])) {
       formIsValid = false;
       errors["sharesTermDeposits"] = "Field is empty";
     }
 
-    if (!fields["creditCard"]) {
+    if (fields["creditCard"] ===  '' || isNaN(fields["creditCard"])) {
       formIsValid = false;
       errors["creditCard"] = "Field is empty";
     }
 
-    if (!fields["otherLiabilities"]) {
+    if (fields["otherLiabilities"] ===  '' || isNaN(fields["otherLiabilities"])) {
       formIsValid = false;
       errors["otherLiabilities"] = "Field is empty";
     }
@@ -159,12 +169,12 @@ const NewApplicationForm = () => {
 
   const onSaveApplicationClicked = async (e) => {
     e.preventDefault();
-    handleValidation();
-    if (Object.keys(errors).length === 0 && canSave) {
+    let isFormValid = handleValidation();
+    if (isFormValid && canSave) {
       await addNewApplication(
         fields,
       );
-    } else alert("Form has errors.");
+    }
   };
 
   const errClass = isError ? "errmsg" : "offscreen";
@@ -178,7 +188,7 @@ const NewApplicationForm = () => {
         <label className="form__label" htmlFor="title">
           Finance Type:&nbsp;
         </label>
-        <span className="error">{errors["title"]}</span>
+        <span className="error">{errors["financeType"]}</span>
         <Select
           options={[
             { value: "lease", label: "Finance Lease" },
@@ -210,24 +220,24 @@ const NewApplicationForm = () => {
         <label className="form__label" htmlFor="assetCost">
           New / Used:&nbsp;
         </label>
-        <span className="error">{errors["title"]}</span>
+        <span className="error">{errors["newUsedType"]}</span>
         <Select
           options={[
             { value: "new", label: "New" },
             { value: "used", label: "Used" },
           ]}
-          name="newUsed"
+          name="newUsedType"
           className={`form__select`}
-          id="newUsed"
+          id="newUsedType"
           placeholder="Select an option"
-          onChange={(option) => handleChange("newUsed", option)}
+          onChange={(option) => handleChange("newUsedType", option)}
         />
         <div className="form__input-row">
           <div>
             <label className="form__label" htmlFor="assetCost">
               Asset Cost:&nbsp;
             </label>
-            <span className="error">{errors["title"]}</span>
+            <span className="error">{errors["assetCost"]}</span>
             <input
               className={`form__input`}
               id="assetCost"
@@ -245,7 +255,7 @@ const NewApplicationForm = () => {
             <label className="form__label" htmlFor="deposit">
               Deposit:&nbsp;
             </label>
-            <span className="error">{errors["title"]}</span>
+            <span className="error">{errors["deposit"]}</span>
             <input
               className={`form__input`}
               id="deposit"
@@ -263,7 +273,7 @@ const NewApplicationForm = () => {
             <label className="form__label" htmlFor="financeAmount">
               Total Amount Finance:&nbsp;
             </label>
-            <span className="error">{errors["title"]}</span>
+            <span className="error">{errors["financeAmount"]}</span>
             <input
               className={`form__input `}
               id="financeAmount"
@@ -283,7 +293,7 @@ const NewApplicationForm = () => {
         <label className="form__label" htmlFor="companyName">
           Company Name:&nbsp;
         </label>
-        <span className="error">{errors["title"]}</span>
+        <span className="error">{errors["companyName"]}</span>
         <input
           className={`form__input`}
           id="companyName"
@@ -297,7 +307,7 @@ const NewApplicationForm = () => {
         <label className="form__label" htmlFor="tradingName">
           Trading Name:&nbsp;
         </label>
-        <span className="error">{errors["title"]}</span>
+        <span className="error">{errors["tradingName"]}</span>
         <input
           className={`form__input`}
           id="tradingName"
@@ -312,7 +322,7 @@ const NewApplicationForm = () => {
         <label className="form__label" htmlFor="ABN">
           ABN:&nbsp;
         </label>
-        <span className="error">{errors["title"]}</span>
+        <span className="error">{errors["ABN"]}</span>
         <input
           className={`form__input`}
           id="ABN"
@@ -328,7 +338,7 @@ const NewApplicationForm = () => {
         <label className="form__label" htmlFor="fullName">
           Full Name:&nbsp;
         </label>
-        <span className="error">{errors["title"]}</span>
+        <span className="error">{errors["fullName"]}</span>
         <input
           className={`form__input`}
           id="fullName"
@@ -342,7 +352,7 @@ const NewApplicationForm = () => {
         <label className="form__label" htmlFor="address">
           Address:&nbsp;
         </label>
-        <span className="error">{errors["title"]}</span>
+        <span className="error">{errors["address"]}</span>
         <input
           className={`form__input`}
           id="address"
@@ -356,7 +366,7 @@ const NewApplicationForm = () => {
         <label className="form__label" htmlFor="addressState">
           State:&nbsp;
         </label>
-        <span className="error">{errors["title"]}</span>
+        <span className="error">{errors["addressState"]}</span>
 
         <Select
           options={[
@@ -384,7 +394,7 @@ const NewApplicationForm = () => {
             <label className="form__label" htmlFor="postCode">
               Post Code:&nbsp;
             </label>
-            <span className="error">{errors["title"]}</span>
+            <span className="error">{errors["postCode"]}</span>
             <input
               className={`form__input`}
               id="postCode"
@@ -401,7 +411,7 @@ const NewApplicationForm = () => {
             <label className="form__label" htmlFor="licence">
               Driver's Licence:&nbsp;
             </label>
-            <span className="error">{errors["title"]}</span>
+            <span className="error">{errors["licence"]}</span>
             <input
               className={`form__input`}
               id="licence"
@@ -422,7 +432,7 @@ const NewApplicationForm = () => {
             <label className="form__label" htmlFor="cash">
               Cash:&nbsp;
             </label>
-            <span className="error">{errors["title"]}</span>
+            <span className="error">{errors["cash"]}</span>
             <input
               className={`form__input`}
               id="cash"
@@ -440,7 +450,7 @@ const NewApplicationForm = () => {
             <label className="form__label" htmlFor="propertiesValue">
               Properties Value:&nbsp;
             </label>
-            <span className="error">{errors["title"]}</span>
+            <span className="error">{errors["propertiesValue"]}</span>
             <input
               className={`form__input`}
               id="propertiesValue"
@@ -458,7 +468,7 @@ const NewApplicationForm = () => {
             <label className="form__label" htmlFor="vehiclesAmount">
               Vehicles Amount:&nbsp;
             </label>
-            <span className="error">{errors["title"]}</span>
+            <span className="error">{errors["vehiclesAmount"]}</span>
             <input
               className={`form__input`}
               id="vehiclesAmount"
@@ -476,7 +486,7 @@ const NewApplicationForm = () => {
             <label className="form__label" htmlFor="sharesTermDeposits">
               Shares/Term deposits:&nbsp;
             </label>
-            <span className="error">{errors["title"]}</span>
+            <span className="error">{errors["sharesTermDeposits"]}</span>
             <input
               className={`form__input`}
               id="sharesTermDeposits"
@@ -497,7 +507,7 @@ const NewApplicationForm = () => {
             <label className="form__label" htmlFor="homeMortgage">
               Home Mortgage:&nbsp;
             </label>
-            <span className="error">{errors["title"]}</span>
+            <span className="error">{errors["homeMortgage"]}</span>
             <input
               className={`form__input`}
               id="homeMortgage"
@@ -514,7 +524,7 @@ const NewApplicationForm = () => {
             <label className="form__label" htmlFor="otherMortgage">
               Other Mortgage:&nbsp;
             </label>
-            <span className="error">{errors["title"]}</span>
+            <span className="error">{errors["otherMortgage"]}</span>
             <input
               className={`form__input`}
               id="otherMortgage"
@@ -531,7 +541,7 @@ const NewApplicationForm = () => {
             <label className="form__label" htmlFor="creditCard">
               Credit Card (limits):&nbsp;
             </label>
-            <span className="error">{errors["title"]}</span>
+            <span className="error">{errors["creditCard"]}</span>
             <input
               className={`form__input`}
               id="creditCard"
@@ -549,7 +559,7 @@ const NewApplicationForm = () => {
             <label className="form__label" htmlFor="otherLiabilities">
               Other Liabilities:&nbsp;
             </label>
-            <span className="error">{errors["title"]}</span>
+            <span className="error">{errors["otherLiabilities"]}</span>
             <input
               className={`form__input`}
               id="otherLiabilities"

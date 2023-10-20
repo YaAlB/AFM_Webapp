@@ -22,78 +22,170 @@ const EditApplicationForm = ({ application }) => {
 
   const navigate = useNavigate();
 
-  const [title, setTitle] = useState(application.title);
-  const [assetCost, setAssetCost] = useState(application.assetCost);
-  const [deposit, setDeposit] = useState(application.deposit);
-  const [financeAmount, setFinanceAmount] = useState(application.financeAmount);
-  const [companyName, setCompanyName] = useState(application.companyName);
-  const [tradingName, setTradingName] = useState(application.tradingName);
-  const [ABN, setABN] = useState(application.ABN);
-  const [fullName, setFullName] = useState(application.fullName);
-  const [address, setAddress] = useState(application.address);
-  const [addressState, setAddressState] = useState(application.addressState);
-  const [postCode, setPostCode] = useState(application.postCode);
-  const [licence, setLicence] = useState(application.licence);
-  const [cash, setCash] = useState(application.cash);
-  const [propertiesValue, setPropertiesValue] = useState(
-    application.propertiesValue
-  );
-  const [vehiclesAmount, setVehiclesAmount] = useState(
-    application.vehiclesAmount
-  );
-  const [sharesTermDeposits, setSharesTermDeposits] = useState(
-    application.sharesTermDeposits
-  );
-  const [homeMortgage, setHomeMortgage] = useState(application.homeMortgage);
-  const [otherMortgage, setOtherMortgage] = useState(
-    application.otherLiabilities
-  );
-  const [creditCard, setCreditCard] = useState(application.creditCard);
-  const [otherLiabilities, setOtherLiabilities] = useState(
-    application.otherLiabilities
-  );
-  const [selectedFinanceType, setSelectedFinanceType] = useState(
-    application.financeType
-  );
-  const [selectedNewUsedType, setSelectedNewUsedType] = useState(
-    application.newUsedType
-  );
+  const [fields, setFields] = useState({
+    title: application.title,
+    financeType: application.financeType,
+    newUsedType: application.newUsedType,
+    assetCost: application.assetCost,
+    deposit: application.deposit,
+    financeAmount: application.financeAmount,
+    companyName: application.companyName,
+    tradingName: application.tradingName,
+    ABN: application.ABN,
+    fullName: application.fullName,
+    address: application.address,
+    addressState: application.addressState,
+    postCode: application.postCode,
+    licence: application.licence,
+    cash: application.cash,
+    propertiesValue: application.propertiesValue,
+    vehiclesAmount: application.vehiclesAmount,
+    sharesTermDeposits: application.sharesTermDeposits,
+    homeMortgage: application.homeMortgage,
+    otherMortgage: application.otherMortgage,
+    creditCard: application.creditCard,
+    otherLiabilities: application.otherLiabilities,
+  });
+  const [errors, setErrors] = useState({});
 
   useEffect(() => {
+    console.log('financeType', fields["financeType"])
     if (isSuccess || isDelSuccess) {
-      setTitle("");
       navigate("/dash/applications");
     }
   }, [isSuccess, isDelSuccess, navigate]);
 
-  const canSave = [title].every(Boolean) && !isLoading;
+  const canSave = !isLoading;
+
+  const handleChange = (field, e) => {
+    setFields({ ...fields, [field]: typeof e !== "object" ? e : { value: e.value, label: e.label } });
+  };
+
+  const handleValidation = () => {
+    let errors = {};
+    let formIsValid = true;
+
+    if (fields["title"] ===  '') {
+      formIsValid = false;
+      errors["title"] = "Field is empty";
+    }
+
+    if (Object.keys(fields["financeType"]).length === 0) {
+      formIsValid = false;
+      errors["financeType"] = "Field is empty";
+    }
+
+    if (Object.keys(fields["newUsedType"]).length === 0) {
+      formIsValid = false;
+      errors["newUsedType"] = "Field is empty";
+    }
+    
+    if (fields["assetCost"] ===  '' || isNaN(fields["assetCost"])) {
+      formIsValid = false;
+      errors["assetCost"] = "Field is empty";
+    }
+
+    if (fields["financeAmount"] ===  '' || isNaN(fields["financeAmount"])) {
+      formIsValid = false;
+      errors["financeAmount"] = "Field is empty";
+    }
+
+    if (fields["companyName"] ===  '') {
+      formIsValid = false;
+      errors["companyName"] = "Field is empty";
+    }
+
+    if (fields["tradingName"] ===  '') {
+      formIsValid = false;
+      errors["tradingName"] = "Field is empty";
+    }
+
+    if (fields["ABN"] ===  '' || isNaN(fields["ABN"])) {
+      formIsValid = false;
+      errors["ABN"] = "Field is empty";
+    }
+
+    if (fields["fullName"] === '') {
+      formIsValid = false;
+      errors["fullName"] = "Field is empty";
+    }
+
+    if (fields["address"] === '') {
+      formIsValid = false;
+      errors["address"] = "Field is empty";
+    }
+
+    if (Object.keys(fields["addressState"]).length === 0) {
+      formIsValid = false;
+      errors["addressState"] = "Field is empty";
+    }
+
+    if (fields["deposit"] ===  '' || isNaN(fields["deposit"])) {
+      formIsValid = false;
+      errors["deposit"] = "Field is empty";
+    }
+
+    if (fields["postCode"] ===  '' || isNaN(fields["postCode"])) {
+      formIsValid = false;
+      errors["postCode"] = "Field is empty";
+    }
+
+    if (fields["licence"] ===  '' || isNaN(fields["licence"])) {
+      formIsValid = false;
+      errors["licence"] = "Field is empty";
+    }
+
+    if (fields["cash"] ===  '' || isNaN(fields["cash"])) {
+      formIsValid = false;
+      errors["cash"] = "Field is empty";
+    }
+
+    if (fields["propertiesValue"] ===  '' || isNaN(fields["propertiesValue"])) {
+      formIsValid = false;
+      errors["propertiesValue"] = "Field is empty";
+    }
+
+    if (fields["vehiclesAmount"] ===  '' || isNaN(fields["vehiclesAmount"])) {
+      formIsValid = false;
+      errors["vehiclesAmount"] = "Field is empty";
+    }
+
+    if (fields["homeMortgage"] ===  '' || isNaN(fields["homeMortgage"])) {
+      formIsValid = false;
+      errors["homeMortgage"] = "Field is empty";
+    }
+
+    if (fields["otherMortgage"] ===  '' || isNaN(fields["otherMortgage"])) {
+      formIsValid = false;
+      errors["otherMortgage"] = "Field is empty";
+    }
+
+    if (fields["sharesTermDeposits"] ===  '' || isNaN(fields["sharesTermDeposits"])) {
+      formIsValid = false;
+      errors["sharesTermDeposits"] = "Field is empty";
+    }
+
+    if (fields["creditCard"] ===  '' || isNaN(fields["creditCard"])) {
+      formIsValid = false;
+      errors["creditCard"] = "Field is empty";
+    }
+
+    if (fields["otherLiabilities"] ===  '' || isNaN(fields["otherLiabilities"])) {
+      formIsValid = false;
+      errors["otherLiabilities"] = "Field is empty";
+    }
+
+    setErrors(errors);
+    return formIsValid;
+  };
 
   const onSaveApplicationClicked = async (e) => {
-    if (canSave) {
-      await updateApplication({
-        id: application.id,
-        title,
-        financeType: selectedFinanceType,
-        newUsedType: selectedNewUsedType,
-        assetCost,
-        deposit,
-        financeAmount,
-        companyName,
-        tradingName,
-        ABN,
-        fullName,
-        address,
-        addressState,
-        postCode,
-        licence,
-        cash,
-        propertiesValue,
-        vehiclesAmount,
-        sharesTermDeposits,
-        otherMortgage,
-        creditCard,
-        otherLiabilities,
-      });
+    console.log(fields)
+    let isFormValid = handleValidation();
+    if (isFormValid && canSave) {
+      await updateApplication(
+        fields,
+      );
     }
   };
 
@@ -119,12 +211,11 @@ const EditApplicationForm = ({ application }) => {
   });
 
   const errClass = isError || isDelError ? "errmsg" : "offscreen";
-  const validTitleClass = !title ? "form__input--incomplete" : "";
-  const validTextClass = !title ? "form__input--incomplete" : "";
 
   const errContent = (error?.data?.message || delerror?.data?.message) ?? "";
 
   const content = (
+
     <>
       <p className={errClass}>{errContent}</p>
 
@@ -140,8 +231,9 @@ const EditApplicationForm = ({ application }) => {
           </button>
         </div>
         <label className="form__label" htmlFor="title">
-          Finance Type:
+          Finance Type:&nbsp;
         </label>
+        <span className="error">{errors["financeType"]}</span>
         <Select
           options={[
             { value: "lease", label: "Finance Lease" },
@@ -149,85 +241,96 @@ const EditApplicationForm = ({ application }) => {
             { value: "mortgage", label: "Chattel Mortgage" },
           ]}
           name="financeType"
-          className={`form__select ${validTextClass}`}
+          className={`form__select`}
           id="financeType"
-          value={selectedFinanceType}
-          onChange={(option) => {
-            setSelectedFinanceType(option);
-          }}
+          placeholder="Select an option"
+          value={fields["financeType"]}
+          onChange={(option) => handleChange("financeType", option)}
         />
+
         <label className="form__label" htmlFor="title">
-          Car OR Asset (Full Details):
+          Car OR Asset (Full Details):&nbsp;
         </label>
+        <span className="error">{errors["title"]}</span>
         <input
-          className={`form__input ${validTitleClass}`}
+          className={`form__input`}
           id="title"
           name="title"
           type="text"
           autoComplete="off"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
+          value={fields["title"]}
+          placeholder="i.e 2021 Frozen Yogurt machine JF1234"
+          onChange={(e) => handleChange("title", e.target.value)}
         />
 
         <label className="form__label" htmlFor="assetCost">
-          New / Used:
+          New / Used:&nbsp;
         </label>
+        <span className="error">{errors["newUsedType"]}</span>
         <Select
           options={[
             { value: "new", label: "New" },
             { value: "used", label: "Used" },
           ]}
-          name="newUsed"
-          className={`form__select ${validTextClass}`}
-          id="newUsed"
-          value={selectedNewUsedType}
-          onChange={(option) => {
-            setSelectedNewUsedType(option);
-          }}
+          name="newUsedType"
+          className={`form__select`}
+          id="newUsedType"
+          placeholder="Select an option"
+          value={fields["newUsedType"]}
+          onChange={(option) => handleChange("newUsedType", option)}
         />
         <div className="form__input-row">
           <div>
             <label className="form__label" htmlFor="assetCost">
-              Asset Cost:
+              Asset Cost:&nbsp;
             </label>
+            <span className="error">{errors["assetCost"]}</span>
             <input
-              className={`form__input ${validTitleClass}`}
+              className={`form__input`}
               id="assetCost"
               name="assetCost"
               type="number"
-              autoComplete="off"
-              value={assetCost}
-              onChange={(e) => setAssetCost(parseInt(e.target.value, 10))}
+              placeholder="Enter amount"
+              value={fields["assetCost"]}
+              onChange={(e) =>
+                handleChange("assetCost", parseInt(e.target.value, 10))
+              }
             />
           </div>
 
           <div>
             <label className="form__label" htmlFor="deposit">
-              Deposit:
+              Deposit:&nbsp;
             </label>
+            <span className="error">{errors["deposit"]}</span>
             <input
-              className={`form__input ${validTitleClass}`}
+              className={`form__input`}
               id="deposit"
               name="deposit"
               type="number"
-              autoComplete="off"
-              value={deposit}
-              onChange={(e) => setDeposit(parseInt(e.target.value, 10))}
+              value={fields["deposit"]}
+              placeholder="Enter amount"
+              onChange={(e) =>
+                handleChange("deposit", parseInt(e.target.value, 10))
+              }
             />
           </div>
 
           <div>
             <label className="form__label" htmlFor="financeAmount">
-              Total Amount Finance:
+              Total Amount Finance:&nbsp;
             </label>
+            <span className="error">{errors["financeAmount"]}</span>
             <input
-              className={`form__input ${validTitleClass}`}
+              className={`form__input `}
               id="financeAmount"
-              name="financeAmoutn"
+              name="financeAmount"
               type="number"
-              autoComplete="off"
-              value={financeAmount}
-              onChange={(e) => setFinanceAmount(parseInt(e.target.value, 10))}
+              value={fields["financeAmount"]}
+              placeholder="Enter amount"
+              onChange={(e) =>
+                handleChange("financeAmount", parseInt(e.target.value, 10))
+              }
             />
           </div>
         </div>
@@ -235,72 +338,82 @@ const EditApplicationForm = ({ application }) => {
         <h3>Business Details:</h3>
 
         <label className="form__label" htmlFor="companyName">
-          Company Name:
+          Company Name:&nbsp;
         </label>
+        <span className="error">{errors["companyName"]}</span>
         <input
-          className={`form__input ${validTitleClass}`}
+          className={`form__input`}
           id="companyName"
           name="companyName"
           type="text"
-          autoComplete="off"
-          value={companyName}
-          onChange={(e) => setCompanyName(e.target.value)}
+          value={fields["companyName"]}
+          placeholder="Enter Company Name"
+          onChange={(e) => handleChange("companyName", e.target.value)}
         />
 
         <label className="form__label" htmlFor="tradingName">
-          Trading Name:
+          Trading Name:&nbsp;
         </label>
+        <span className="error">{errors["tradingName"]}</span>
         <input
-          className={`form__input ${validTextClass}`}
+          className={`form__input`}
           id="tradingName"
           name="tradingName"
           type="text"
           autoComplete="off"
-          value={tradingName}
-          onChange={(e) => setTradingName(e.target.value)}
+          value={fields["tradingName"]}
+          placeholder="Enter Trading Name"
+          onChange={(e) => handleChange("tradingName", e.target.value)}
         />
 
         <label className="form__label" htmlFor="ABN">
-          ABN:
+          ABN:&nbsp;
         </label>
+        <span className="error">{errors["ABN"]}</span>
         <input
-          className={`form__input ${validTextClass}`}
+          className={`form__input`}
           id="ABN"
           name="ABN"
           type="number"
-          value={ABN}
-          onChange={(e) => setABN(parseInt(e.target.value, 10))}
+          value={fields["ABN"]}
+          placeholder="Enter ABN Number"
+          onChange={(e) => handleChange("ABN", parseInt(e.target.value, 10))}
         />
 
         <h3>Director / Propriet details:</h3>
 
         <label className="form__label" htmlFor="fullName">
-          Full Name:
+          Full Name:&nbsp;
         </label>
+        <span className="error">{errors["fullName"]}</span>
         <input
-          className={`form__input ${validTextClass}`}
+          className={`form__input`}
           id="fullName"
           name="fullName"
           type="text"
-          value={fullName}
-          onChange={(e) => setFullName(e.target.value)}
+          value={fields["fullName"]}
+          placeholder="Enter Full Name"
+          onChange={(e) => handleChange("fullName", e.target.value)}
         />
 
         <label className="form__label" htmlFor="address">
-          Address:
+          Address:&nbsp;
         </label>
+        <span className="error">{errors["address"]}</span>
         <input
-          className={`form__input ${validTextClass}`}
+          className={`form__input`}
           id="address"
           name="address"
           type="text"
-          value={address}
-          onChange={(e) => setAddress(e.target.value)}
+          value={fields["address"]}
+          placeholder="Enter Address"
+          onChange={(e) => handleChange("address", e.target.value)}
         />
 
         <label className="form__label" htmlFor="addressState">
-          State:
+          State:&nbsp;
         </label>
+        <span className="error">{errors["addressState"]}</span>
 
         <Select
           options={[
@@ -317,37 +430,46 @@ const EditApplicationForm = ({ application }) => {
             },
           ]}
           name="selectState"
-          className={`form__select ${validTextClass}`}
+          className={`form__select`}
           id="addressState"
-          value={addressState}
-          onChange={(option) => setAddressState(option)}
+          placeholder="Select State"
+          value={fields["addressState"]}
+          onChange={(option) => handleChange("addressState", option)}
         />
 
         <div className="form__input-row">
           <div>
             <label className="form__label" htmlFor="postCode">
-              Post Code:
+              Post Code:&nbsp;
             </label>
+            <span className="error">{errors["postCode"]}</span>
             <input
-              className={`form__input ${validTextClass}`}
+              className={`form__input`}
               id="postCode"
               name="postCode"
               type="text"
-              value={postCode}
-              onChange={(e) => setPostCode(parseInt(e.target.value, 10))}
+              value={fields["postCode"]}
+              placeholder="Enter Postcode"
+              onChange={(e) =>
+                handleChange("postCode", parseInt(e.target.value, 10))
+              }
             />
           </div>
           <div>
             <label className="form__label" htmlFor="licence">
-              Driver's Licence:
+              Driver's Licence:&nbsp;
             </label>
+            <span className="error">{errors["licence"]}</span>
             <input
-              className={`form__input ${validTextClass}`}
+              className={`form__input`}
               id="licence"
               name="licence"
-              type="text"
-              value={licence}
-              onChange={(e) => setLicence(parseInt(e.target.value, 10))}
+              type="number"
+              value={fields["licence"]}
+              placeholder="Enter licence"
+              onChange={(e) =>
+                handleChange("licence", parseInt(e.target.value, 10))
+              }
             />
           </div>
         </div>
@@ -356,65 +478,73 @@ const EditApplicationForm = ({ application }) => {
         <div className="form__input-row">
           <div>
             <label className="form__label" htmlFor="cash">
-              Cash:
+              Cash:&nbsp;
             </label>
+            <span className="error">{errors["cash"]}</span>
             <input
-              className={`form__input ${validTextClass}`}
+              className={`form__input`}
               id="cash"
               name="cash"
               type="number"
-              value={cash}
-              onChange={(e) => {
-                setCash(parseInt(e.target.value, 10));
-              }}
+              value={fields["cash"]}
+              placeholder="Enter Amount"
+              onChange={(e) =>
+                handleChange("cash", parseInt(e.target.value, 10))
+              }
             />
           </div>
 
           <div>
             <label className="form__label" htmlFor="propertiesValue">
-              Properties Value:
+              Properties Value:&nbsp;
             </label>
+            <span className="error">{errors["propertiesValue"]}</span>
             <input
-              className={`form__input ${validTextClass}`}
+              className={`form__input`}
               id="propertiesValue"
               name="propertiesValue"
               type="number"
-              value={propertiesValue}
-              onChange={(e) => {
-                setPropertiesValue(parseInt(e.target.value, 10));
-              }}
+              value={fields["propertiesValue"]}
+              placeholder="Enter Amount"
+              onChange={(e) =>
+                handleChange("propertiesValue", parseInt(e.target.value, 10))
+              }
             />
           </div>
 
           <div>
             <label className="form__label" htmlFor="vehiclesAmount">
-              Vehicles Amount:
+              Vehicles Amount:&nbsp;
             </label>
+            <span className="error">{errors["vehiclesAmount"]}</span>
             <input
-              className={`form__input ${validTextClass}`}
+              className={`form__input`}
               id="vehiclesAmount"
               name="vehiclesAmount"
               type="number"
-              value={vehiclesAmount}
-              onChange={(e) => {
-                setVehiclesAmount(parseInt(e.target.value, 10));
-              }}
+              value={fields["vehiclesAmount"]}
+              placeholder="Enter Amount"
+              onChange={(e) =>
+                handleChange("vehiclesAmount", parseInt(e.target.value, 10))
+              }
             />
           </div>
 
           <div>
             <label className="form__label" htmlFor="sharesTermDeposits">
-              Shares/Term deposits:
+              Shares/Term deposits:&nbsp;
             </label>
+            <span className="error">{errors["sharesTermDeposits"]}</span>
             <input
-              className={`form__input ${validTextClass}`}
+              className={`form__input`}
               id="sharesTermDeposits"
               name="sharesTermDeposits"
               type="number"
-              value={sharesTermDeposits}
-              onChange={(e) => {
-                setSharesTermDeposits(parseInt(e.target.value, 10));
-              }}
+              value={fields["sharesTermDeposits"]}
+              placeholder="Enter Amount"
+              onChange={(e) =>
+                handleChange("sharesTermDeposits", parseInt(e.target.value, 10))
+              }
             />
           </div>
         </div>
@@ -423,63 +553,71 @@ const EditApplicationForm = ({ application }) => {
         <div className="form__input-row">
           <div>
             <label className="form__label" htmlFor="homeMortgage">
-              Home Mortgage:
+              Home Mortgage:&nbsp;
             </label>
+            <span className="error">{errors["homeMortgage"]}</span>
             <input
-              className={`form__input ${validTextClass}`}
+              className={`form__input`}
               id="homeMortgage"
               name="homeMortgage"
               type="number"
-              value={homeMortgage}
-              onChange={(e) => {
-                setHomeMortgage(parseInt(e.target.value, 10));
-              }}
+              value={fields["homeMortgage"]}
+              placeholder="Enter Amount"
+              onChange={(e) =>
+                handleChange("homeMortgage", parseInt(e.target.value, 10))
+              }
             />
           </div>
           <div>
             <label className="form__label" htmlFor="otherMortgage">
-              Other Mortgage:
+              Other Mortgage:&nbsp;
             </label>
+            <span className="error">{errors["otherMortgage"]}</span>
             <input
-              className={`form__input ${validTextClass}`}
+              className={`form__input`}
               id="otherMortgage"
               name="otherMortgage"
               type="number"
-              value={otherMortgage}
-              onChange={(e) => {
-                setOtherMortgage(parseInt(e.target.value, 10));
-              }}
+              value={fields["otherMortgage"]}
+              placeholder="Enter Amount"
+              onChange={(e) =>
+                handleChange("otherMortgage", parseInt(e.target.value, 10))
+              }
             />
           </div>
           <div>
             <label className="form__label" htmlFor="creditCard">
-              Credit Card (limits) :
+              Credit Card (limits):&nbsp;
             </label>
+            <span className="error">{errors["creditCard"]}</span>
             <input
-              className={`form__input ${validTextClass}`}
+              className={`form__input`}
               id="creditCard"
               name="creditCard"
               type="number"
-              value={creditCard}
-              onChange={(e) => {
-                setCreditCard(parseInt(e.target.value, 10));
-              }}
+              value={fields["creditCard"]}
+              placeholder="Enter Amount"
+              onChange={(e) =>
+                handleChange("creditCard", parseInt(e.target.value, 10))
+              }
             />
           </div>
 
           <div>
             <label className="form__label" htmlFor="otherLiabilities">
-              Other Liabilities:
+              Other Liabilities:&nbsp;
             </label>
+            <span className="error">{errors["otherLiabilities"]}</span>
             <input
-              className={`form__input ${validTextClass}`}
+              className={`form__input`}
               id="otherLiabilities"
               name="otherLiabilities"
               type="number"
-              value={otherLiabilities}
-              onChange={(e) => {
-                setOtherLiabilities(parseInt(e.target.value, 10));
-              }}
+              value={fields["otherLiabilities"]}
+              placeholder="Enter Amount"
+              onChange={(e) =>
+                handleChange("otherLiabilities", parseInt(e.target.value, 10))
+              }
             />
           </div>
         </div>
